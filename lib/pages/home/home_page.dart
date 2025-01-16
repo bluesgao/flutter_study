@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_study/pages/home/grouplist_widget.dart';
 import 'package:flutter_study/pages/home/listview_widget.dart';
 import 'package:flutter_study/pages/home/slider_widget.dart';
 
@@ -28,7 +29,9 @@ class _HomePageState extends State<HomePage> {
           color: Colors.red,
           child:SliderWidget(imgList: imgList,),
         ),
-        Expanded(child: ListViewWidget(imgList: imgList))
+        // Expanded(child: ListViewWidget(imgList: imgList))
+        Expanded(child: GroupListWidget())
+
       ],
     );
   }
