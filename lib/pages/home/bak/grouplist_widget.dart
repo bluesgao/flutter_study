@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:grouped_list/grouped_list.dart';
 
@@ -14,6 +13,7 @@ class GroupListWidget extends StatelessWidget {
     {'name': 'Mike', 'group': 'Team C'},
     {'name': 'Danny', 'group': 'Team C'},
   ];
+
   @override
   Widget build(BuildContext context) {
     return GroupedListView<dynamic, String>(
@@ -38,7 +38,7 @@ class GroupListWidget extends StatelessWidget {
           child: SizedBox(
             child: ListTile(
               contentPadding:
-              const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
               leading: const Icon(Icons.account_circle),
               title: Text(element['name']),
               trailing: const Icon(Icons.arrow_forward),

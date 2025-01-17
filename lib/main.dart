@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_study/layout/google_nav_bar_layout.dart';
+import 'package:flutter_study/viewmodel/common_vm.dart';
+import 'package:provider/provider.dart';
 
 import 'layout/bottom_nav_bar_layout.dart';
 
+//在应用的顶层绑定 Provider，确保状态在整个应用中共享。
+// 在应用启动时执行一次
+// 场景：用户登录信息、主题、设置等
 void main() {
-  runApp(const MyApp());
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (context) => CommonViewModel()),
+      // ChangeNotifierProvider(create: (context) => GameViewModel())
+    ],
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {

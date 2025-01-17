@@ -11,7 +11,8 @@ class GoogleNavBarLayout extends StatefulWidget {
 
 class _GoogleNavBarLayoutState extends State<GoogleNavBarLayout> {
   int _selectedIndex = 0;
-  static const TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
+  static const TextStyle optionStyle =
+      TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
   static const List<Widget> _widgetOptions = <Widget>[
     Text(
       'Home',
