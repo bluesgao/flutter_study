@@ -1,0 +1,1 @@
+ /Users/gocode/StudioProjects/flutter_study/getx_demo/.dart_tool/flutter_build/f28a6cb98afcb7ebe5bff8ec863867c3/native_assets.yaml: 

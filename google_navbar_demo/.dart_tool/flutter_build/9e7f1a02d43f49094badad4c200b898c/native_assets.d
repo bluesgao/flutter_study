@@ -1,0 +1,1 @@
+ /Users/gocode/StudioProjects/flutter_study/google_navbar_demo/.dart_tool/flutter_build/9e7f1a02d43f49094badad4c200b898c/native_assets.yaml: 

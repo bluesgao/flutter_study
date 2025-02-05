@@ -1,0 +1,1 @@
+ /Users/gocode/StudioProjects/flutter_study/advanced_drawer_demo/.dart_tool/flutter_build/5d6f84a371cdfaeb0d0bfe2264f96973/native_assets.yaml: 

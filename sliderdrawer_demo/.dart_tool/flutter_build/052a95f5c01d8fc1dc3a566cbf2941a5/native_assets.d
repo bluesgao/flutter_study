@@ -1,0 +1,1 @@
+ /Users/gocode/StudioProjects/flutter_study/sliderdrawer_demo/.dart_tool/flutter_build/052a95f5c01d8fc1dc3a566cbf2941a5/native_assets.yaml: 
