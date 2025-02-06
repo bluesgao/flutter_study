@@ -21,7 +21,7 @@ class CounterPage extends StatelessWidget {
     Map routeArgs = Get.arguments;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        // backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text("案例: ${routeArgs["title"]}"),
       ),
       body: Center(

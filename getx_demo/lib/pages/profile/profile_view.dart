@@ -18,8 +18,17 @@ class ProfilePage extends StatelessWidget {
           title: Text("个人中心页面"),
         ),
         body: Center(
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [Text("访问个人中心需要登录")])));
+            child:
+                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Text("个人中心"),
+          ElevatedButton(
+            onPressed: () {
+              print("点击切换主题");
+              // 切换主题
+              logic.toggleTheme();
+            },
+            child: Text('Toggle Theme'),
+          )
+        ])));
   }
 }
