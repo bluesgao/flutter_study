@@ -176,10 +176,10 @@
       "languageVersion": "3.6"
     }
   ],
-  "generated": "2025-02-05T02:46:31.257410Z",
+  "generated": "2025-02-07T05:33:29.109005Z",
   "generator": "pub",
-  "generatorVersion": "3.6.0",
+  "generatorVersion": "3.6.2",
   "flutterRoot": "file:///Users/gocode/flutter",
-  "flutterVersion": "3.27.1",
+  "flutterVersion": "3.27.4",
   "pubCache": "file:///Users/gocode/.pub-cache"
 }
