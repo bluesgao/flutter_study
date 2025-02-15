@@ -13,16 +13,15 @@ class _DynamicPageState extends State<DynamicPage> {
 
   final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
-  int page = 1;
 
   /// **下拉刷新**
-  void _onRefresh() async {
-    await Future.delayed(Duration(seconds: 2)); // 模拟网络请求
-    setState(() {
-      items = List.generate(10, (index) => "New Item $index"); // 替换数据
-    });
-    _refreshController.refreshCompleted(); // 完成刷新
-  }
+  // void _onRefresh() async {
+  //   await Future.delayed(Duration(seconds: 2)); // 模拟网络请求
+  //   setState(() {
+  //     items = List.generate(10, (index) => "New Item $index"); // 替换数据
+  //   });
+  //   _refreshController.refreshCompleted(); // 完成刷新
+  // }
 
   /// **上拉加载更多**
   void _onLoading() async {
@@ -41,23 +40,6 @@ class _DynamicPageState extends State<DynamicPage> {
     );
   }
 
-  SliverAppBar _buildAppBar(String title) {
-    return SliverAppBar(
-      pinned: true,
-      snap: false,
-      floating: false,
-      expandedHeight: 180,
-      flexibleSpace: FlexibleSpaceBar(
-        title: Text(title),
-        centerTitle: true,
-        background: Image.network(
-          'https://images.pexels.com/photos/30699925/pexels-photo-30699925.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-          fit: BoxFit.cover,
-        ),
-      ),
-    );
-  }
-
   SmartRefresher _buildView() {
     //刷新组件
     return SmartRefresher(
@@ -65,7 +47,7 @@ class _DynamicPageState extends State<DynamicPage> {
       enablePullDown: false, //下拉刷新
       enablePullUp: true, //上拉加载更多
       onLoading: _onLoading, //上拉加载更多
-      onRefresh: _onRefresh,
+      // onRefresh: _onRefresh, // 下拉刷新
       //下拉头部UI样式
       // header: const WaterDropHeader(
       //   idleIcon: Icon(
@@ -98,14 +80,35 @@ class _DynamicPageState extends State<DynamicPage> {
       //customScrollview拼接轮播图和信息流。
       child: CustomScrollView(
         slivers: [
-          _buildAppBar('动态'),
-          SliverList(
-            delegate: SliverChildBuilderDelegate((content, index) {
-              return ListTile(title: Text(items[index]));
-            }, childCount: items.length),
-          )
+          _buildSliverAppBar('动态'),
+          _buildSliverList(),
         ],
       ),
+    );
+  }
+
+  SliverAppBar _buildSliverAppBar(String title) {
+    return SliverAppBar(
+      pinned: true,
+      snap: false,
+      floating: false,
+      expandedHeight: 180,
+      flexibleSpace: FlexibleSpaceBar(
+        title: Text(title),
+        centerTitle: true,
+        background: Image.network(
+          'https://images.pexels.com/photos/30699925/pexels-photo-30699925.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+          fit: BoxFit.cover,
+        ),
+      ),
+    );
+  }
+
+  SliverList _buildSliverList() {
+    return SliverList(
+      delegate: SliverChildBuilderDelegate((content, index) {
+        return ListTile(title: Text(items[index]));
+      }, childCount: items.length),
     );
   }
 }
