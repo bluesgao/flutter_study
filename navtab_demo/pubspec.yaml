@@ -12,6 +12,8 @@ dependencies:
 
   cupertino_icons: ^1.0.8
   extended_nested_scroll_view: ^6.2.1
+  google_nav_bar: ^5.0.7
+  line_icons: ^2.0.3
 
 dev_dependencies:
   flutter_test:
