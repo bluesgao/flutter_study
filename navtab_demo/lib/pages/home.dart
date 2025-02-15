@@ -69,27 +69,39 @@ class HomePageState extends State<HomePage> {
       // appBar: AppBar(
       //   title: Text('岛上码农'),
       // ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        currentIndex: _index,
-        onTap: _onBottomNagigationBarTapped,
-        items: Constants.navigationBarItems().map(
-          (item) {
-            return _buildBottomNavItem(
-              item['title'],
-              item['normalIcon'],
-              item['pressedIcon'],
-              item['index'],
-            );
-          },
-        ).toList(),
-      ),
+      bottomNavigationBar: _buildBottomNavigationBar(),
       body: PageView(
         physics: NeverScrollableScrollPhysics(), //禁止手势滑动
         controller: _pageController,
         onPageChanged: _onPageChanged,
         children: _pageList,
       ),
+    );
+  }
+
+  // 底部导航栏
+  BottomNavigationBar _buildBottomNavigationBar() {
+    return BottomNavigationBar(
+      type: BottomNavigationBarType.fixed,
+      currentIndex: _index,
+      onTap: _onBottomNagigationBarTapped,
+      selectedItemColor: Colors.blueGrey, //选中颜色
+      unselectedItemColor: Colors.grey, //未选中颜色
+      selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold), //选中文字样式
+      unselectedLabelStyle: TextStyle(fontWeight: FontWeight.normal), //未选中文字样式
+      // selectedIconTheme:
+      //     IconThemeData(size: 24, color: Colors.blueAccent), //选中图标大小
+      // unselectedIconTheme: IconThemeData(size: 24), //未选中图标大小
+      items: Constants.navigationBarItems().map(
+        (item) {
+          return _buildBottomNavItem(
+            item['title'],
+            item['normalIcon'],
+            item['pressedIcon'],
+            item['index'],
+          );
+        },
+      ).toList(),
     );
   }
 
