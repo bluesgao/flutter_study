@@ -16,7 +16,9 @@ class HomePageState extends State<HomePage> {
 
   final List<Widget> _pageList = [
     GamePage(),
-    DynamicPage(),
+    // DynamicPage(),
+    // OrderPage(),
+    BillPage(),
     MinePage(),
   ];
 
