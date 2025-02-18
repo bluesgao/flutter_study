@@ -18,7 +18,8 @@ class HomePageState extends State<HomePage> {
     GamePage(),
     // DynamicPage(),
     // OrderPage(),
-    BillPage(),
+    GoodsPage(),
+    // BillPage(),
     MinePage(),
   ];
 
