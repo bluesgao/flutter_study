@@ -7,4 +7,4 @@ export 'mine.dart';
 export 'game.dart';
 export 'order.dart';
 export 'bill.dart';
-export 'goods.dart';
+export 'goods/goods.dart';

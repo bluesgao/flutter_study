@@ -9,7 +9,7 @@ class Constants {
       },
       {
         'index': 1,
-        'title': '动态',
+        'title': '福利',
         'normalIcon': 'assets/images/bill_line.png',
         'pressedIcon': 'assets/images/bill_fill.png'
       },

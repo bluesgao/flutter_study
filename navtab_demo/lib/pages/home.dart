@@ -15,10 +15,10 @@ class HomePageState extends State<HomePage> {
   final PageController _pageController = PageController();
 
   final List<Widget> _pageList = [
-    GamePage(),
+    // GamePage(),
     // DynamicPage(),
-    // OrderPage(),
     GoodsPage(),
+    OrderPage(),
     // BillPage(),
     MinePage(),
   ];
