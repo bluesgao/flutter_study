@@ -60,6 +60,8 @@ class _GoodsPageState extends State<GoodsPage> {
                 print('onTap $index');
                 _currentIndex = index;
               });
+              //点击回到顶部
+              
             },
             isScrollable: true, // 设置为可滚动
             tabAlignment: TabAlignment.start, // 设置为左对齐

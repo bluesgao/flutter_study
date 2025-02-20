@@ -41,11 +41,15 @@ class _RecommendPageState extends State<RecommendPage> {
         ),
         SliverList(
             delegate: SliverChildBuilderDelegate(
-          (context, index) => ListTile(
-            title: Text('$index'),
-            onTap: () {
-              print(index);
-            },
+          (context, index) => Card(
+            margin: EdgeInsets.all(8),
+            color: Colors.grey.shade200,
+            child: ListTile(
+              title: Text('$index'),
+              onTap: () {
+                print(index);
+              },
+            ),
           ),
           childCount: 35,
         ))

@@ -20,7 +20,7 @@ class HomePageState extends State<HomePage> {
     GoodsPage(),
     OrderPage(),
     // BillPage(),
-    MinePage(),
+   DemoPage(),
   ];
 
   // 底部导航栏点击

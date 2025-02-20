@@ -1,3 +1,4 @@
+import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter/material.dart';
 import '../../widgets/index.dart';
 
@@ -9,12 +10,25 @@ class HotPage extends StatefulWidget {
 }
 
 class _HotPageState extends State<HotPage> {
-  List<String> items = List.generate(20, (index) => "Item $index");
+  List<String> _items = List.generate(10, (index) => "default Item $index");
+
+  late EasyRefreshController _controller;
+
   final List<String> _hotBannerData = [
     'https://img.yzcdn.cn/vant/apple-4.jpg',
     'https://img.yzcdn.cn/vant/apple-5.jpg',
     'https://img.yzcdn.cn/vant/apple-6.jpg',
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = EasyRefreshController(
+      controlFinishRefresh: true,
+      controlFinishLoad: true,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,31 +37,56 @@ class _HotPageState extends State<HotPage> {
   }
 
   Widget _buildView() {
-    //刷新组件
-    return CustomScrollView(
-      key: PageStorageKey<String>("hot"),
-      slivers: [
-        SliverOverlapInjector(
-          handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
-        ),
-        SliverPadding(
-          padding: const EdgeInsets.all(8.0),
-        ),
-        _hotBanner(_hotBannerData),
-        SliverPadding(
-          padding: const EdgeInsets.all(8.0),
-        ),
-        SliverList(
-            delegate: SliverChildBuilderDelegate(
-          (context, index) => ListTile(
-            title: Text('$index'),
-            onTap: () {
-              print(index);
-            },
+    return EasyRefresh(
+      controller: _controller,
+      header: ClassicHeader(),
+      footer: ClassicFooter(),
+      // 下拉刷新
+      onRefresh: () async {
+        print('onRefresh');
+        await Future.delayed(Duration(seconds: 2));
+        setState(() {
+          _items = List.generate(10, (index) => "onRefresh Item $index");
+        });
+        _controller.finishRefresh(IndicatorResult.success);
+      },
+      // 上拉加载
+      onLoad: () async {
+        print('onLoad');
+        await Future.delayed(Duration(seconds: 2));
+        setState(() {
+          _items.addAll(List.generate(
+              10, (index) => "onLoad Item ${_items.length + index}"));
+        });
+        _controller.finishLoad(IndicatorResult.success);
+      },
+      child: CustomScrollView(
+        key: PageStorageKey<String>("hot"),
+        slivers: [
+          SliverOverlapInjector(
+            handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
           ),
-          childCount: 35,
-        ))
-      ],
+          SliverPadding(
+            padding: const EdgeInsets.all(8.0),
+          ),
+          _hotBanner(_hotBannerData),
+          SliverPadding(
+            padding: const EdgeInsets.all(8.0),
+          ),
+          SliverList(
+              delegate: SliverChildBuilderDelegate(
+            (context, index) => Card(
+              margin: EdgeInsets.all(8),
+              color: Colors.blueGrey,
+              child: Container(
+                height: 160,
+                child: Text('$index'),
+              ),
+            ),
+            childCount: _items.length,
+          ))
+        ],
+      ),
     );
   }
 
@@ -55,7 +94,7 @@ class _HotPageState extends State<HotPage> {
   Widget _hotBanner(List<String> bannerData) {
     return SliverToBoxAdapter(
       child: BannerWidget(
-          dotType: BannerDotType.square,
+          dotType: BannerDotType.circle,
           bannerData: bannerData,
           bannerClick: (index) {
             //banner点击

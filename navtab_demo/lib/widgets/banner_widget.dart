@@ -29,4 +29,4 @@ class BannerWidget extends StatelessWidget {
       ),
     );
   }
-} 
+}
