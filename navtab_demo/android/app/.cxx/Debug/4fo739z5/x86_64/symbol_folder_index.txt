@@ -1,0 +1,1 @@
+/Users/gocode/StudioProjects/flutter_study/navtab_demo/build/app/intermediates/cxx/Debug/4fo739z5/obj/x86_64

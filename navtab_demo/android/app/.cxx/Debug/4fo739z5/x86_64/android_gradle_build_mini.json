@@ -1,0 +1,20 @@
+{
+  "buildFiles": [
+    "/Users/gocode/flutter/packages/flutter_tools/gradle/src/main/groovy/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/Users/gocode/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+      "-C",
+      "/Users/gocode/StudioProjects/flutter_study/navtab_demo/android/app/.cxx/Debug/4fo739z5/x86_64",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/Users/gocode/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+    "-C",
+    "/Users/gocode/StudioProjects/flutter_study/navtab_demo/android/app/.cxx/Debug/4fo739z5/x86_64",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {}
+}

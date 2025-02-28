@@ -1,6 +1,7 @@
 import 'package:navtab_demo/pages/constants.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:navtab_demo/pages/video/video.dart';
 import 'index.dart';
 
 class HomePage extends StatefulWidget {
@@ -17,10 +18,12 @@ class HomePageState extends State<HomePage> {
   final List<Widget> _pageList = [
     // GamePage(),
     // DynamicPage(),
-    GoodsPage(),
+    // GoodsPage(),
+    VideoPage(),
+
     OrderPage(),
     // BillPage(),
-   DemoPage(),
+    DemoPage(),
   ];
 
   // 底部导航栏点击

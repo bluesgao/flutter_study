@@ -1,0 +1,2 @@
+/Users/gocode/StudioProjects/flutter_study/navtab_demo/android/app/.cxx/Debug/4fo739z5/x86_64/CMakeFiles/edit_cache.dir
+/Users/gocode/StudioProjects/flutter_study/navtab_demo/android/app/.cxx/Debug/4fo739z5/x86_64/CMakeFiles/rebuild_cache.dir
