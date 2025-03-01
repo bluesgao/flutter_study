@@ -11,6 +11,7 @@ import 'package:easyrefresh_demo/page/sample/paging_page.dart';
 import 'package:easyrefresh_demo/page/sample/refresh_on_start_page.dart';
 import 'package:easyrefresh_demo/page/sample/sample_page.dart';
 import 'package:easyrefresh_demo/page/sample/secondary_page.dart';
+import 'package:easyrefresh_demo/page/sample/stagered_grid_view_page.dart';
 import 'package:easyrefresh_demo/page/sample/tab_bar_view_page.dart';
 import 'package:easyrefresh_demo/page/sample/theme_switch_page.dart';
 import 'package:easyrefresh_demo/page/sample/user_profile_page.dart';
@@ -46,6 +47,8 @@ class Routes {
   static const tabBarViewSample = '/sample/tab-bar-view';
   static const pagingSample = '/sample/paging';
   static const themeSwitchSample = '/sample/theme-switch';
+  static const staggeredGridSample = '/sample/staggered-grid';
+
   // Style
   static const style = '/style';
   static const classicStyle = '/style/classic';
@@ -85,6 +88,11 @@ class Routes {
     GetPage(name: tabBarViewSample, page: () => const TabBarViewPage()),
     GetPage(name: pagingSample, page: () => const PagingPage()),
     GetPage(name: themeSwitchSample, page: () => const ThemeSwitchPage()),
+    GetPage(
+      name: staggeredGridSample,
+      page: () => const StaggeredGridViewPage(),
+    ),
+
     // Style
     GetPage(name: style, page: () => const StylePage()),
     GetPage(name: classicStyle, page: () => const ClassicPage()),

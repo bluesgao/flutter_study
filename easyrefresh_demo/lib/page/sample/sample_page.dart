@@ -25,7 +25,8 @@ class _SamplePageState extends State<SamplePage> {
               title: Text(
                 'Sample'.tr,
                 style: TextStyle(
-                    color: Theme.of(context).textTheme.titleLarge?.color),
+                  color: Theme.of(context).textTheme.titleLarge?.color,
+                ),
               ),
               centerTitle: false,
             ),
@@ -99,6 +100,12 @@ class _SamplePageState extends State<SamplePage> {
                 subtitle: 'Theme switch example'.tr,
                 icon: Icons.style,
                 onTap: () => Get.toNamed(Routes.themeSwitchSample),
+              ),
+              ListItem(
+                title: 'staggered grid'.tr,
+                subtitle: 'staggered grid example'.tr,
+                icon: Icons.style,
+                onTap: () => Get.toNamed(Routes.staggeredGridSample),
               ),
               if (kDebugMode)
                 ListItem(
