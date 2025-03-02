@@ -34,6 +34,12 @@ class _SamplePageState extends State<SamplePage> {
           SliverList(
             delegate: SliverChildListDelegate([
               ListItem(
+                title: 'staggered grid'.tr,
+                subtitle: 'staggered grid example'.tr,
+                icon: Icons.style,
+                onTap: () => Get.toNamed(Routes.staggeredGridSample),
+              ),
+              ListItem(
                 title: 'User profile'.tr,
                 subtitle: 'User personal center'.tr,
                 icon: Icons.person,
@@ -100,12 +106,6 @@ class _SamplePageState extends State<SamplePage> {
                 subtitle: 'Theme switch example'.tr,
                 icon: Icons.style,
                 onTap: () => Get.toNamed(Routes.themeSwitchSample),
-              ),
-              ListItem(
-                title: 'staggered grid'.tr,
-                subtitle: 'staggered grid example'.tr,
-                icon: Icons.style,
-                onTap: () => Get.toNamed(Routes.staggeredGridSample),
               ),
               if (kDebugMode)
                 ListItem(

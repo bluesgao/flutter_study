@@ -11,7 +11,7 @@ import 'package:easyrefresh_demo/page/sample/paging_page.dart';
 import 'package:easyrefresh_demo/page/sample/refresh_on_start_page.dart';
 import 'package:easyrefresh_demo/page/sample/sample_page.dart';
 import 'package:easyrefresh_demo/page/sample/secondary_page.dart';
-import 'package:easyrefresh_demo/page/sample/stagered_grid_view_page.dart';
+import 'package:easyrefresh_demo/page/sample/staggered_grid_view_page.dart';
 import 'package:easyrefresh_demo/page/sample/tab_bar_view_page.dart';
 import 'package:easyrefresh_demo/page/sample/theme_switch_page.dart';
 import 'package:easyrefresh_demo/page/sample/user_profile_page.dart';
