@@ -14,7 +14,7 @@ class StaggeredGridViewPage extends StatefulWidget {
 }
 
 class _StaggeredGridViewPageState extends State<StaggeredGridViewPage> {
-  int _count = 5;
+  int _count = 15;
   final int _total = 25;
 
   late EasyRefreshController _controller;
@@ -39,11 +39,16 @@ class _StaggeredGridViewPageState extends State<StaggeredGridViewPage> {
     return _buildView(context);
   }
 
-  ClassicHeader _buildRefreshHeader(){
+  ClassicHeader _buildRefreshHeader() {
     return ClassicHeader(
       clamping: true,
+      hitOver: true,
+      safeArea: true,
+      processedDuration: Duration.zero,
       position: IndicatorPosition.locator,
       mainAxisAlignment: MainAxisAlignment.end,
+      showMessage: false, //是否显示消息
+      showText: false, //是否显示文本
       dragText: 'Pull to refresh'.tr,
       armedText: 'Release ready'.tr,
       readyText: 'Refreshing...'.tr,
@@ -55,9 +60,32 @@ class _StaggeredGridViewPageState extends State<StaggeredGridViewPage> {
     );
   }
 
-  ClassicFooter _buildRefreshFooter(){
+  ClassicHeader _buildRefreshHeaderV2() {
+    return ClassicHeader(
+      clamping: true,
+      hitOver: true,
+      safeArea: true,
+      processedDuration: Duration.zero,
+      position: IndicatorPosition.locator,
+      mainAxisAlignment: MainAxisAlignment.end,
+      showMessage: false, //是否显示消息
+      showText: false, //是否显示文本
+      dragText: 'Pull to refresh'.tr,
+      armedText: 'Release ready'.tr,
+      readyText: 'Refreshing...'.tr,
+      processingText: 'Refreshing...'.tr,
+      processedText: 'Succeeded'.tr,
+      noMoreText: 'No more'.tr,
+      failedText: 'Failed'.tr,
+      messageText: 'Last updated at %T'.tr,
+    );
+  }
+
+  ClassicFooter _buildRefreshFooter() {
     return ClassicFooter(
       position: IndicatorPosition.locator,
+      showText: false,
+      showMessage: false,
       dragText: 'Pull to load'.tr,
       armedText: 'Release ready'.tr,
       readyText: 'Loading...'.tr,
@@ -69,7 +97,7 @@ class _StaggeredGridViewPageState extends State<StaggeredGridViewPage> {
     );
   }
 
-  Future<void> _onRefresh() async{
+  Future<void> _onRefresh() async {
     print("------_onRefresh--------");
 
     await Future.delayed(const Duration(seconds: 2));
@@ -77,13 +105,13 @@ class _StaggeredGridViewPageState extends State<StaggeredGridViewPage> {
       return;
     }
     setState(() {
-      _count = 5;
+      _count = 15;
     });
     _controller.finishRefresh();
     _controller.resetFooter();
   }
 
-  Future<void> _onLoad() async{
+  Future<void> _onLoad() async {
     print("------_onLoad--------");
     await Future.delayed(const Duration(seconds: 2));
     if (!mounted) {
@@ -118,13 +146,13 @@ class _StaggeredGridViewPageState extends State<StaggeredGridViewPage> {
     );
   }
 
-  Widget _buildSliverAppBar(){
+  Widget _buildSliverAppBar() {
     return SliverAppBar(
       expandedHeight: 120,
       pinned: true,
       flexibleSpace: FlexibleSpaceBar(
         title: Text(
-          'TabBarView new',
+          'StaggeredGridView',
           style: TextStyle(
             color: Theme.of(context).textTheme.titleLarge?.color,
           ),
@@ -134,21 +162,22 @@ class _StaggeredGridViewPageState extends State<StaggeredGridViewPage> {
     );
   }
 
-  Widget _buildStaggeredGridView(){
+  Widget _buildStaggeredGridView() {
     return SliverMasonryGrid.count(
-        crossAxisCount: 2,
-        mainAxisSpacing: 2,
-        crossAxisSpacing: 2,
+      crossAxisCount: 2,
+      mainAxisSpacing: 0,
+      crossAxisSpacing: 0,
       childCount: _count,
       itemBuilder: (BuildContext context, int index) {
-          return SkeletonItem();
-    },
-
+        return SkeletonItem(direction: Axis.vertical);
+      },
     );
   }
 
-
-  Widget _buildExtendedNestedScrollView(BuildContext context, ScrollPhysics physics){
+  Widget _buildExtendedNestedScrollView(
+    BuildContext context,
+    ScrollPhysics physics,
+  ) {
     return ExtendedNestedScrollView(
       physics: physics,
       onlyOneScrollInBody: true,
@@ -165,21 +194,30 @@ class _StaggeredGridViewPageState extends State<StaggeredGridViewPage> {
     );
   }
 
-  Widget _buildCustomScrollView(BuildContext context, ScrollPhysics physics){
+  Widget _buildCustomScrollView(BuildContext context, ScrollPhysics physics) {
     return CustomScrollView(
       shrinkWrap: true,
       physics: physics,
       slivers: [
         //页面头
-          _buildSliverAppBar(),
+        _buildSliverAppBar(),
         //header 定位器
         const HeaderLocator.sliver(clearExtent: false),
         // 瀑布流
         _buildStaggeredGridView(),
         //footer 定位器
-        const FooterLocator.sliver(clearExtent: false)
+        const FooterLocator.sliver(clearExtent: false),
+        // 尾部间隔（防止底部navbar挡住内容）
+        // SliverToBoxAdapter(
+        //   child: SizedBox(
+        //     height: MediaQuery.of(context).padding.bottom + 10,
+        //     child: Container(
+        //       color: Colors.red,
+        //       child: const FooterLocator(clearExtent: false),
+        //     ),
+        //   ),
+        // ),
       ],
     );
   }
-
 }
