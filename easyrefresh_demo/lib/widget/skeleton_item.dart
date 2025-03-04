@@ -58,50 +58,61 @@ class SkeletonItem extends StatelessWidget {
           ),
         ),
       );
-    }
-    return Card(
-      elevation: 0,
-      color: backgroundColor,
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              margin: const EdgeInsets.only(bottom: 16),
-              height: 80,
-              width: 80,
-              color: foregroundColor,
-            ),
-            Expanded(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
+    } else {
+      return Card(
+        elevation: 0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(0), // 设置圆角半径
+          side: BorderSide(
+            color: Colors.blue, // 边框颜色
+            width: 1, // 边框宽度
+          ),
+        ),
+        color: backgroundColor,
+        // 外边距
+        margin: EdgeInsets.only(left: 4, right: 2),
+        child: Padding(
+          padding: EdgeInsets.all(4),
+          child: Column(
+            // crossAxisAlignment: CrossAxisAlignment.start,
+            // mainAxisSize: MainAxisSize.min,
+            children: [
+              // 图片
+              Container(
+                margin: const EdgeInsets.only(bottom: 8),
+                height: 150 + Random().nextInt(100).toDouble(), //模拟图片高度变化
+                // width: 400,
+                color: Colors.blueGrey,
+              ),
+              Text(
+                "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                softWrap: true,
+              ),
+
+              // 底部
+              Row(
+                // mainAxisSize: MainAxisSize.min,
+                // crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    margin: const EdgeInsets.only(left: 8, bottom: 24),
-                    width: 12,
-                    height: double.infinity,
-                    constraints: const BoxConstraints(maxHeight: 200),
+                    height: 24,
                     color: foregroundColor,
+                    child: Text("用户名"),
                   ),
                   Container(
-                    margin: const EdgeInsets.only(left: 16),
-                    width: 12,
-                    height: 80,
+                    padding: EdgeInsets.only(left: 10),
+                    height: 24,
                     color: foregroundColor,
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(left: 8),
-                    width: 12,
-                    height: 80,
-                    color: foregroundColor,
+                    child: Text("hello"),
                   ),
                 ],
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    }
   }
 }

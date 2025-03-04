@@ -164,12 +164,12 @@ class _StaggeredGridViewPageState extends State<StaggeredGridViewPage> {
 
   Widget _buildStaggeredGridView() {
     return SliverMasonryGrid.count(
-      crossAxisCount: 2,
+      crossAxisCount: 4,
       mainAxisSpacing: 0,
       crossAxisSpacing: 0,
       childCount: _count,
       itemBuilder: (BuildContext context, int index) {
-        return SkeletonItem(direction: Axis.vertical);
+        return SkeletonItem(direction: Axis.horizontal);
       },
     );
   }
