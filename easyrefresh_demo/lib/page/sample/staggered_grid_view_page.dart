@@ -13,24 +13,28 @@ class StaggeredGridViewPage extends StatefulWidget {
   State<StaggeredGridViewPage> createState() => _StaggeredGridViewPageState();
 }
 
-class _StaggeredGridViewPageState extends State<StaggeredGridViewPage> {
+class _StaggeredGridViewPageState extends State<StaggeredGridViewPage>
+    with SingleTickerProviderStateMixin {
   int _count = 15;
   final int _total = 25;
 
-  late EasyRefreshController _controller;
+  late EasyRefreshController refreshController;
 
+  late TabController tabController;
   @override
   void initState() {
     super.initState();
-    _controller = EasyRefreshController(
+    refreshController = EasyRefreshController(
       controlFinishRefresh: true,
       controlFinishLoad: true,
     );
+
+    tabController = TabController(length: 5, vsync: this);
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    refreshController.dispose();
     super.dispose();
   }
 
@@ -40,27 +44,6 @@ class _StaggeredGridViewPageState extends State<StaggeredGridViewPage> {
   }
 
   ClassicHeader _buildRefreshHeader() {
-    return ClassicHeader(
-      clamping: true,
-      hitOver: true,
-      safeArea: true,
-      processedDuration: Duration.zero,
-      position: IndicatorPosition.locator,
-      mainAxisAlignment: MainAxisAlignment.end,
-      showMessage: false, //是否显示消息
-      showText: false, //是否显示文本
-      dragText: 'Pull to refresh'.tr,
-      armedText: 'Release ready'.tr,
-      readyText: 'Refreshing...'.tr,
-      processingText: 'Refreshing...'.tr,
-      processedText: 'Succeeded'.tr,
-      noMoreText: 'No more'.tr,
-      failedText: 'Failed'.tr,
-      messageText: 'Last updated at %T'.tr,
-    );
-  }
-
-  ClassicHeader _buildRefreshHeaderV2() {
     return ClassicHeader(
       clamping: true,
       hitOver: true,
@@ -107,8 +90,8 @@ class _StaggeredGridViewPageState extends State<StaggeredGridViewPage> {
     setState(() {
       _count = 15;
     });
-    _controller.finishRefresh();
-    _controller.resetFooter();
+    refreshController.finishRefresh();
+    refreshController.resetFooter();
   }
 
   Future<void> _onLoad() async {
@@ -120,7 +103,7 @@ class _StaggeredGridViewPageState extends State<StaggeredGridViewPage> {
     setState(() {
       _count += 5;
     });
-    _controller.finishLoad(
+    refreshController.finishLoad(
       _count >= _total ? IndicatorResult.noMore : IndicatorResult.success,
     );
   }
@@ -129,7 +112,7 @@ class _StaggeredGridViewPageState extends State<StaggeredGridViewPage> {
     final themeData = Theme.of(context);
     return Scaffold(
       body: EasyRefresh.builder(
-        controller: _controller,
+        controller: refreshController,
         // isNested: true,
         header: _buildRefreshHeader(),
         footer: _buildRefreshFooter(),
@@ -148,7 +131,7 @@ class _StaggeredGridViewPageState extends State<StaggeredGridViewPage> {
 
   Widget _buildSliverAppBar() {
     return SliverAppBar(
-      expandedHeight: 120,
+      // expandedHeight: Get.statusBarHeight,
       pinned: true,
       flexibleSpace: FlexibleSpaceBar(
         title: Text(
@@ -162,9 +145,22 @@ class _StaggeredGridViewPageState extends State<StaggeredGridViewPage> {
     );
   }
 
+  Widget _buildTabBar() {
+    return TabBar(
+      controller: tabController,
+      tabs: [
+        Tab(text: "热门"),
+        Tab(text: "推荐"),
+        Tab(text: "关注"),
+        Tab(text: "美剧"),
+        Tab(text: "韩剧"),
+      ],
+    );
+  }
+
   Widget _buildStaggeredGridView() {
     return SliverMasonryGrid.count(
-      crossAxisCount: 4,
+      crossAxisCount: 2,
       mainAxisSpacing: 0,
       crossAxisSpacing: 0,
       childCount: _count,
@@ -174,23 +170,94 @@ class _StaggeredGridViewPageState extends State<StaggeredGridViewPage> {
     );
   }
 
-  Widget _buildExtendedNestedScrollView(
-    BuildContext context,
-    ScrollPhysics physics,
-  ) {
-    return ExtendedNestedScrollView(
-      physics: physics,
-      onlyOneScrollInBody: true,
-      pinnedHeaderSliverHeightBuilder: () {
-        return MediaQuery.of(context).padding.top + kToolbarHeight;
-      },
-      headerSliverBuilder: (context, innerBoxIsScrolled) {
-        return <Widget>[
-          const HeaderLocator.sliver(clearExtent: false),
-          _buildSliverAppBar(),
-        ];
-      },
-      body: _buildStaggeredGridView(),
+  Widget _buildCustomAppBar() {
+    var appbarHeight = Get.statusBarHeight;
+    final double statusBarHeight = MediaQuery.of(context).padding.top;
+
+    print("Get.statusBarHeight ${Get.statusBarHeight}");
+    print("statusBarHeight ${statusBarHeight}");
+    print("kToolbarHeight ${kToolbarHeight}");
+
+    return SliverPersistentHeader(
+      pinned: true,
+      delegate: _CustomSliverHeaderDelegate(
+        minHeight: statusBarHeight + kToolbarHeight,
+        maxHeight: statusBarHeight + kToolbarHeight,
+        child: Column(
+          children: [
+            Expanded(
+              child: Container(
+                color: Colors.yellow,
+                alignment: Alignment.center,
+                // child: Text(
+                //   'Search Header',
+                //   style: TextStyle(
+                //     color: Colors.white,
+                //     fontSize: 24.0,
+                //     fontWeight: FontWeight.bold,
+                //   ),
+                // ),
+              ),
+            ),
+            Container(
+              // color: Colors.cyan,
+              color: Colors.white,
+              width: double.infinity,
+              height: kToolbarHeight,
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  //logo
+                  Container(
+                    height: 40,
+                    width: 40,
+                    // color: Colors.red,
+                    margin: EdgeInsets.all(10),
+                    child: CircleAvatar(
+                      backgroundImage:
+                          Image.asset('assets/image/user_head.jpg').image,
+                    ),
+                  ),
+                  // search
+                  Expanded(
+                    // flex: 8,
+                    child: Container(
+                      height: 40,
+                      // color: Colors.green,
+                      margin: EdgeInsets.all(0),
+                      child: TextField(
+                        decoration: InputDecoration(
+                          hintText: 'Search...',
+                          filled: true,
+                          // fillColor: Colors.red,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(25),
+                            borderSide: BorderSide.none,
+                          ),
+                          prefixIcon: Icon(Icons.search),
+                          contentPadding: EdgeInsets.symmetric(vertical: 0),
+                        ),
+                      ),
+                    ),
+                  ),
+                  // message
+                  Container(
+                    height: 40,
+                    width: 40,
+                    // color: Colors.blue,
+                    margin: EdgeInsets.all(10),
+                    child: IconButton(
+                      onPressed: () {},
+                      icon: Icon(Icons.notifications_active_outlined),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -199,8 +266,11 @@ class _StaggeredGridViewPageState extends State<StaggeredGridViewPage> {
       shrinkWrap: true,
       physics: physics,
       slivers: [
-        //页面头
-        _buildSliverAppBar(),
+        //appbar
+        //_buildSliverAppBar(),
+        _buildCustomAppBar(),
+        //tabbar
+        SliverToBoxAdapter(child: _buildTabBar()),
         //header 定位器
         const HeaderLocator.sliver(clearExtent: false),
         // 瀑布流
@@ -219,5 +289,40 @@ class _StaggeredGridViewPageState extends State<StaggeredGridViewPage> {
         // ),
       ],
     );
+  }
+}
+
+// 自定义 SliverPersistentHeaderDelegate
+class _CustomSliverHeaderDelegate extends SliverPersistentHeaderDelegate {
+  final double minHeight;
+  final double maxHeight;
+  final Widget child;
+
+  _CustomSliverHeaderDelegate({
+    required this.minHeight,
+    required this.maxHeight,
+    required this.child,
+  });
+
+  @override
+  Widget build(
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) {
+    return SizedBox.expand(child: child);
+  }
+
+  @override
+  double get maxExtent => maxHeight;
+
+  @override
+  double get minExtent => minHeight;
+
+  @override
+  bool shouldRebuild(_CustomSliverHeaderDelegate oldDelegate) {
+    return maxHeight != oldDelegate.maxHeight ||
+        minHeight != oldDelegate.minHeight ||
+        child != oldDelegate.child;
   }
 }
