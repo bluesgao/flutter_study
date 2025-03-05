@@ -1,4 +1,6 @@
 import 'package:easyrefresh_demo/widget/skeleton_item.dart';
+import 'package:easyrefresh_demo/widget/tabbar_underline_indicator.dart';
+
 import 'package:flutter/material.dart';
 import 'package:easy_refresh/easy_refresh.dart';
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
@@ -29,7 +31,7 @@ class _StaggeredGridViewPageState extends State<StaggeredGridViewPage>
       controlFinishLoad: true,
     );
 
-    tabController = TabController(length: 5, vsync: this);
+    tabController = TabController(length: 9, vsync: this);
   }
 
   @override
@@ -147,12 +149,44 @@ class _StaggeredGridViewPageState extends State<StaggeredGridViewPage>
 
   Widget _buildTabBar() {
     return TabBar(
+      isScrollable: true, //是否可滚动
+      tabAlignment: TabAlignment.start, // 设置为左对齐
+      padding: EdgeInsets.zero, // Remove default padding
       controller: tabController,
+      //指示器长度=label，即tab文字长度
+      indicatorSize: TabBarIndicatorSize.label,
+      //指示器长度=tab
+      // indicatorSize: TabBarIndicatorSize.tab,
+      labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+      unselectedLabelStyle: TextStyle(
+        fontWeight: FontWeight.normal,
+        fontSize: 14,
+      ),
+
+      //圆角指示器(渐变色)
+      // indicator: BoxDecoration(
+      //   gradient: LinearGradient(
+      //     colors: [Colors.redAccent, Colors.orangeAccent],
+      //   ),
+      //   color: Colors.redAccent,
+      //   borderRadius: BorderRadius.circular(50),
+      // ),
+
+      //自定义指示器
+      indicator: TabBarUnderlineTabIndicator(
+        insets: const EdgeInsets.only(top: 0, bottom: 4),
+        borderSide: BorderSide(color: Colors.black, width: 2),
+        borderRadius: BorderRadius.circular(50),
+      ),
       tabs: [
         Tab(text: "热门"),
-        Tab(text: "推荐"),
+        Tab(text: "好看推荐"),
         Tab(text: "关注"),
         Tab(text: "美剧"),
+        Tab(text: "韩剧"),
+        Tab(text: "韩剧"),
+        Tab(text: "韩剧"),
+        Tab(text: "韩剧"),
         Tab(text: "韩剧"),
       ],
     );
@@ -204,6 +238,7 @@ class _StaggeredGridViewPageState extends State<StaggeredGridViewPage>
               color: Colors.white,
               width: double.infinity,
               height: kToolbarHeight,
+              alignment: Alignment.center, //设置控件内容的位置
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -213,7 +248,8 @@ class _StaggeredGridViewPageState extends State<StaggeredGridViewPage>
                     height: 40,
                     width: 40,
                     // color: Colors.red,
-                    margin: EdgeInsets.all(10),
+                    margin: EdgeInsets.only(left: 10, right: 10),
+                    alignment: Alignment.center, //设置控件内容的位置
                     child: CircleAvatar(
                       backgroundImage:
                           Image.asset('assets/image/user_head.jpg').image,
@@ -223,9 +259,10 @@ class _StaggeredGridViewPageState extends State<StaggeredGridViewPage>
                   Expanded(
                     // flex: 8,
                     child: Container(
+                      alignment: Alignment.center, //设置控件内容的位置
                       height: 40,
                       // color: Colors.green,
-                      margin: EdgeInsets.all(0),
+                      // margin: EdgeInsets.all(0),
                       child: TextField(
                         decoration: InputDecoration(
                           hintText: 'Search...',
@@ -245,11 +282,13 @@ class _StaggeredGridViewPageState extends State<StaggeredGridViewPage>
                   Container(
                     height: 40,
                     width: 40,
-                    // color: Colors.blue,
-                    margin: EdgeInsets.all(10),
+                    alignment: Alignment.center, //设置控件内容的位置
+                    color: Colors.blue,
+                    margin: EdgeInsets.only(right: 10),
                     child: IconButton(
                       onPressed: () {},
-                      icon: Icon(Icons.notifications_active_outlined),
+                      icon: Icon(Icons.email_outlined),
+                      iconSize: 28.0,
                     ),
                   ),
                 ],
@@ -267,7 +306,7 @@ class _StaggeredGridViewPageState extends State<StaggeredGridViewPage>
       physics: physics,
       slivers: [
         //appbar
-        //_buildSliverAppBar(),
+        // _buildSliverAppBar(),
         _buildCustomAppBar(),
         //tabbar
         SliverToBoxAdapter(child: _buildTabBar()),
