@@ -237,7 +237,7 @@ class _StaggeredGridViewPageState extends State<StaggeredGridViewPage>
               // color: Colors.cyan,
               color: Colors.white,
               width: double.infinity,
-              height: kToolbarHeight,
+              height: kToolbarHeight > 48 ? 48 : kToolbarHeight,
               alignment: Alignment.center, //设置控件内容的位置
               child: Row(
                 mainAxisSize: MainAxisSize.max,
@@ -284,7 +284,7 @@ class _StaggeredGridViewPageState extends State<StaggeredGridViewPage>
                     width: 40,
                     alignment: Alignment.center, //设置控件内容的位置
                     color: Colors.blue,
-                    margin: EdgeInsets.only(right: 10),
+                    // margin: EdgeInsets.only(right: 10),
                     child: IconButton(
                       onPressed: () {},
                       icon: Icon(Icons.email_outlined),
