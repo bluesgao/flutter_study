@@ -52,6 +52,9 @@ class TabsViewPageState extends State<TabsViewPage>
   Widget build(BuildContext context) {
     var appbarHeight = Get.statusBarHeight;
     final double statusBarHeight = MediaQuery.of(context).padding.top;
+    final double barWidth = MediaQuery.of(context).size.width;
+    print("statusBarHeight ${statusBarHeight}");
+    print("barWidth ${barWidth}");
 
     return DefaultTabController(
       length: _tabs.length,
@@ -64,39 +67,21 @@ class TabsViewPageState extends State<TabsViewPage>
               expandedHeight: statusBarHeight + kToolbarHeight,
               pinned: true, // 固定在顶部
               floating: true, // 快速显示
-              snap: true, // 快速展开
-              toolbarHeight: kToolbarHeight, // 固定状态下的高度
-              //定制展开内容
-              // flexibleSpace: FlexibleSpaceBar(
-              //   title: Container(
-              //     height: kTextTabBarHeight,
-              //     // child: Text('CustomScrollView'),
-              //     child: _buildSearchAppBar(kTextTabBarHeight),
-              //   ),
-              // ),
-              // title: Text('Custom SliverAppBar'),
+              // snap: true, // 快速展开
+              stretch: true,
+              // 固定状态下的高度
+              toolbarHeight: kToolbarHeight,
               // 定制search
               title: SearchWidget(height: 36),
+              // title组件居中
               centerTitle: true,
-              // leading: IconButton(
-              //   icon: Icon(Icons.menu),
-              //   onPressed: () {
-              //     print('Menu Button Pressed');
-              //   },
-              // ),
+              //leading和title的间距，默认为 16
+              titleSpacing: 0,
               //定制logo
               leading: LogoWidget(
                 height: kToolbarHeight,
                 width: kToolbarHeight,
               ),
-              actions: [
-                IconButton(
-                  icon: Icon(Icons.email_outlined),
-                  onPressed: () {
-                    print('More Button Pressed');
-                  },
-                ),
-              ],
               //定制 tabbar
               bottom: TabBar(
                 isScrollable: true, //是否可滚动
@@ -136,173 +121,6 @@ class TabsViewPageState extends State<TabsViewPage>
       ),
     );
   }
-
-  Widget _buildSearchAppBar(double searchBarHeight) {
-    return
-    //搜索框
-    Container(
-      // color: Colors.cyan,
-      // color: Colors.white,
-      width: double.infinity,
-      height: searchBarHeight,
-      alignment: Alignment.center, //设置控件内容的位置
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          //logo
-          Container(
-            height: 38,
-            width: 38,
-            color: Colors.red,
-            margin: EdgeInsets.only(left: 10, right: 10),
-            alignment: Alignment.center, //设置控件内容的位置
-            child: CircleAvatar(
-              backgroundImage: Image.asset('assets/image/user_head.jpg').image,
-              radius: searchBarHeight / 2 - 4,
-            ),
-          ),
-          // search
-          Expanded(
-            // flex: 8,
-            child: Container(
-              alignment: Alignment.center, //设置控件内容的位置
-              height: 32,
-              // color: Colors.green,
-              // margin: EdgeInsets.all(0),
-              child: TextField(
-                decoration: InputDecoration(
-                  hintText: 'Search...',
-                  filled: true,
-                  // fillColor: Colors.red,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15),
-                    borderSide: BorderSide.none,
-                  ),
-                  prefixIcon: Icon(Icons.search),
-                  contentPadding: EdgeInsets.symmetric(vertical: 0),
-                ),
-              ),
-            ),
-          ),
-          // message
-          Container(
-            // height: 32,
-            // width: 32,
-            alignment: Alignment.center, //设置控件内容的位置
-            // color: Colors.blue,
-            // margin: EdgeInsets.only(right: 10),
-            child: IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.email_outlined),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildCustomAppBar() {
-    var appbarHeight = Get.statusBarHeight;
-    final double statusBarHeight = MediaQuery.of(context).padding.top;
-
-    print("Get.statusBarHeight ${Get.statusBarHeight}");
-    print("statusBarHeight ${statusBarHeight}");
-    print("kToolbarHeight ${kToolbarHeight}");
-    final double searchBarHeight = 42;
-
-    final double appBarHeight =
-        statusBarHeight +
-        (kToolbarHeight > searchBarHeight ? searchBarHeight : kToolbarHeight);
-
-    return SliverPersistentHeader(
-      pinned: true,
-      delegate: _CustomSliverHeaderDelegate(
-        minHeight: appBarHeight,
-        maxHeight: appBarHeight,
-        child: Column(
-          children: [
-            Expanded(
-              child: Container(
-                color: Colors.white,
-                alignment: Alignment.center,
-                // child: Text(
-                //   'Search Header',
-                //   style: TextStyle(
-                //     color: Colors.white,
-                //     fontSize: 24.0,
-                //     fontWeight: FontWeight.bold,
-                //   ),
-                // ),
-              ),
-            ),
-            //搜索框
-            Container(
-              // color: Colors.cyan,
-              color: Colors.white,
-              width: double.infinity,
-              height: searchBarHeight,
-              alignment: Alignment.center, //设置控件内容的位置
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  //logo
-                  Container(
-                    // height: 38,
-                    // width: 38,
-                    // color: Colors.red,
-                    margin: EdgeInsets.only(left: 10, right: 10),
-                    alignment: Alignment.center, //设置控件内容的位置
-                    child: CircleAvatar(
-                      backgroundImage:
-                          Image.asset('assets/image/user_head.jpg').image,
-                      radius: searchBarHeight / 2 - 4,
-                    ),
-                  ),
-                  // search
-                  Expanded(
-                    // flex: 8,
-                    child: Container(
-                      alignment: Alignment.center, //设置控件内容的位置
-                      height: 32,
-                      // color: Colors.green,
-                      // margin: EdgeInsets.all(0),
-                      child: TextField(
-                        decoration: InputDecoration(
-                          hintText: 'Search...',
-                          filled: true,
-                          // fillColor: Colors.red,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
-                            borderSide: BorderSide.none,
-                          ),
-                          prefixIcon: Icon(Icons.search),
-                          contentPadding: EdgeInsets.symmetric(vertical: 0),
-                        ),
-                      ),
-                    ),
-                  ),
-                  // message
-                  Container(
-                    // height: 32,
-                    // width: 32,
-                    alignment: Alignment.center, //设置控件内容的位置
-                    // color: Colors.blue,
-                    // margin: EdgeInsets.only(right: 10),
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: Icon(Icons.email_outlined),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 }
 
 class _AutomaticKeepAlive extends StatefulWidget {
@@ -324,39 +142,4 @@ class _AutomaticKeepAliveState extends State<_AutomaticKeepAlive>
 
   @override
   bool get wantKeepAlive => true;
-}
-
-// 自定义 SliverPersistentHeaderDelegate
-class _CustomSliverHeaderDelegate extends SliverPersistentHeaderDelegate {
-  final double minHeight;
-  final double maxHeight;
-  final Widget child;
-
-  _CustomSliverHeaderDelegate({
-    required this.minHeight,
-    required this.maxHeight,
-    required this.child,
-  });
-
-  @override
-  Widget build(
-    BuildContext context,
-    double shrinkOffset,
-    bool overlapsContent,
-  ) {
-    return SizedBox.expand(child: child);
-  }
-
-  @override
-  double get maxExtent => maxHeight;
-
-  @override
-  double get minExtent => minHeight;
-
-  @override
-  bool shouldRebuild(_CustomSliverHeaderDelegate oldDelegate) {
-    return maxHeight != oldDelegate.maxHeight ||
-        minHeight != oldDelegate.minHeight ||
-        child != oldDelegate.child;
-  }
 }
