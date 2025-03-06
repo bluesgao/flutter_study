@@ -30,6 +30,7 @@ import 'package:easyrefresh_demo/page/style/squats_page.dart';
 import 'package:easyrefresh_demo/page/style/style_page.dart';
 import 'package:easyrefresh_demo/page/style/taurus_page.dart';
 import 'package:get/get.dart';
+import 'package:easyrefresh_demo/page/sample/tabs_view_page.dart';
 
 class Routes {
   // Home
@@ -48,6 +49,7 @@ class Routes {
   static const pagingSample = '/sample/paging';
   static const themeSwitchSample = '/sample/theme-switch';
   static const staggeredGridSample = '/sample/staggered-grid';
+  static const tabsSample = '/sample/tabs';
 
   // Style
   static const style = '/style';
@@ -92,6 +94,7 @@ class Routes {
       name: staggeredGridSample,
       page: () => const StaggeredGridViewPage(),
     ),
+    GetPage(name: tabsSample, page: () => const TabsViewPage()),
 
     // Style
     GetPage(name: style, page: () => const StylePage()),

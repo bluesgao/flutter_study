@@ -97,4 +97,6 @@ const zhCN = {
   'Bubbles launch': '泡泡发射',
   'staggered grid': '瀑布流',
   'staggered grid example': '瀑布流示例',
+  'tab view': 'tabs',
+  'tab view example': 'tabs示例',
 };

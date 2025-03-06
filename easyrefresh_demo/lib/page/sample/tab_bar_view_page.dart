@@ -6,7 +6,6 @@ import 'package:easy_refresh/easy_refresh.dart';
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:get/get.dart';
 
-//customScrollView->tabBar->tabBarView -> easyrefresh-> stageredGridView
 class TabBarViewPage extends StatefulWidget {
   const TabBarViewPage({super.key});
 

@@ -100,4 +100,6 @@ const en = {
   'Bubbles launch': 'Bubbles launch',
   'staggered grid': 'Staggered Grid',
   'staggered grid example': 'Staggered Grid Example',
+  'tab view': 'tabs view',
+  'tab view example': 'tabs Example',
 };

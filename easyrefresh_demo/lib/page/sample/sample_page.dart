@@ -34,6 +34,12 @@ class _SamplePageState extends State<SamplePage> {
           SliverList(
             delegate: SliverChildListDelegate([
               ListItem(
+                title: 'tabs view'.tr,
+                subtitle: 'tabs view example'.tr,
+                icon: Icons.style,
+                onTap: () => Get.toNamed(Routes.tabsSample),
+              ),
+              ListItem(
                 title: 'staggered grid'.tr,
                 subtitle: 'staggered grid example'.tr,
                 icon: Icons.style,
