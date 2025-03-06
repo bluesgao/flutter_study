@@ -102,4 +102,6 @@ const en = {
   'staggered grid example': 'Staggered Grid Example',
   'tab view': 'tabs view',
   'tab view example': 'tabs Example',
+  'nested tab view': 'nested tabs',
+  'nested tab view example': 'nested tabs Example',
 };

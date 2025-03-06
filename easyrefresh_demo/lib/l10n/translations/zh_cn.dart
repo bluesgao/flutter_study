@@ -99,4 +99,6 @@ const zhCN = {
   'staggered grid example': '瀑布流示例',
   'tab view': 'tabs',
   'tab view example': 'tabs示例',
+  'nested tab view': 'nested tabs',
+  'nested tab view example': 'nested tabs示例',
 };

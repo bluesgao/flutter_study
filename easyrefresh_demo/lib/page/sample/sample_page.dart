@@ -34,6 +34,12 @@ class _SamplePageState extends State<SamplePage> {
           SliverList(
             delegate: SliverChildListDelegate([
               ListItem(
+                title: 'nested tabs view'.tr,
+                subtitle: 'nested tabs view example'.tr,
+                icon: Icons.style,
+                onTap: () => Get.toNamed(Routes.nestedTabsSample),
+              ),
+              ListItem(
                 title: 'tabs view'.tr,
                 subtitle: 'tabs view example'.tr,
                 icon: Icons.style,

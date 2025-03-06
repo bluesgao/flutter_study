@@ -10,6 +10,8 @@ import 'package:easyrefresh_demo/widget/logo_widget.dart';
 import 'package:easyrefresh_demo/widget/search_widget.dart';
 import 'package:easyrefresh_demo/widget/actions_widget.dart';
 
+import 'package:easyrefresh_demo/widget/common_sliver_header_delegate.dart';
+
 class NestedTabsViewPage extends StatefulWidget {
   const NestedTabsViewPage({super.key});
 
@@ -55,90 +57,98 @@ class NestedTabsViewPageState extends State<NestedTabsViewPage>
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: _tabs.length,
-      child: Scaffold(body: _buildCustomScrollView()),
-    );
+    return SafeArea(child: Scaffold(body: _buildNestedScrollView()));
   }
 
-  Widget _buildCustomScrollView() {
-    return CustomScrollView(
-      shrinkWrap: true,
-      slivers: [
-        _buildSliverAppBar(),
-        // SliverToBoxAdapter(child: _buildAppBar()),
-        SliverGrid(
-          delegate: SliverChildBuilderDelegate((context, index) {
-            return Container(
-              color: Colors.blue[(index % 9) * 100],
-              child: Center(child: Text('Grid Item $index')),
-            );
-          }, childCount: 30),
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, // 每行显示 2 个
+  Widget _buildNestedScrollView() {
+    final double statusBarHeight = MediaQuery.of(context).padding.top;
+
+    return NestedScrollView(
+      headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+        return [
+          //searchbar
+          SliverPersistentHeader(
+            delegate: CommonSliverHeaderDelegate(
+              islucency: false,
+              child: PreferredSize(
+                preferredSize: Size.fromHeight(48),
+                child: Container(
+                  color: Colors.cyan,
+                  padding: EdgeInsets.all(8),
+                  child: SearchWidget(height: 36),
+                ),
+              ),
+              backgroundColor: Colors.red,
+            ),
           ),
-        ),
-      ],
+          //tab bar 悬停
+          SliverPersistentHeader(
+            pinned: true, // 让 header 固定在顶部
+            floating: true,
+            delegate: CommonSliverHeaderDelegate(
+              islucency: false,
+              child: buildCustomTabBar(),
+              backgroundColor: Colors.yellow,
+            ),
+          ),
+        ];
+      },
+      body: buildCustomTabBarView(),
     );
   }
 
-  Widget _buildTabBarView() {
+  Widget _buildSliverGrid() {
+    return SliverGrid(
+      delegate: SliverChildBuilderDelegate((context, index) {
+        return Container(
+          color: Colors.blue[(index % 9) * 100],
+          child: Center(child: Text('Grid Item $index')),
+        );
+      }, childCount: 30),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2, // 每行显示 2 个
+      ),
+    );
+  }
+
+  Widget _buildListView(String title) {
+    return ListView.builder(
+      itemCount: 20, // 列表项数量
+      itemBuilder: (context, index) {
+        return Card(
+          color: Colors.blueGrey[(index % 9) * 100],
+          child: Container(height: 100, child: Text('Grid Item $title $index')),
+        );
+      },
+    );
+  }
+
+  Widget buildCustomTabBarView() {
     return TabBarView(
       controller: _tabController, //tabbar控制器
       children: <Widget>[
         // Scaffold(
         //   body: Text('sdf'),
         // ),
-        Text('Home'),
-        Text('Business'),
-        Text('School1'),
-        Text('School2'),
-        Text('School3'),
-        Text('School4'),
-        Text('School5'),
-        Text('School6'),
-        Text('School7'),
+        _buildListView("home"),
+        _buildListView('Business'),
+        _buildListView('School1'),
+        _buildListView('School2'),
+        _buildListView('School3'),
+        _buildListView('School4'),
+        _buildListView('School5'),
+        _buildListView('School6'),
+        _buildListView('School7'),
       ],
     );
   }
 
-  Widget _buildSliverAppBar() {
-    final double statusBarHeight = MediaQuery.of(context).padding.top;
-    return SliverAppBar(
-      systemOverlayStyle: SystemUiOverlayStyle(
-        statusBarColor: Colors.red, // 设置状态栏背景颜色（Android）
-        statusBarIconBrightness: Brightness.dark, // 状态栏图标颜色（Android）
-        statusBarBrightness: Brightness.dark, // 状态栏文字颜色（iOS）
-      ),
-      backgroundColor: Colors.white,
-      expandedHeight: statusBarHeight + getTabBarHeight(),
-      pinned: true, // 固定在顶部
-      floating: true, // 快速显示
-      // snap: true, // 快速展开
-      // stretch: true,
-      // 固定状态下的高度
-      toolbarHeight: getTabBarHeight(),
-      elevation: 0.0, // 设置阴影高度
-      // 禁止自动添加返回按钮
-      automaticallyImplyLeading: false,
-      // 定制search
-      title: SearchWidget(height: 32),
-      // title组件居中
-      centerTitle: true,
-      //leading和title的间距，默认为 16
-      titleSpacing: 8,
-      //定制logo
-      leading: LogoWidget(height: getTabBarHeight(), width: getTabBarHeight()),
-      //定制 tabbar
-      bottom: _buildTabBar(),
-    );
-  }
-
-  PreferredSize _buildTabBar() {
+  PreferredSize buildCustomTabBar() {
     return PreferredSize(
-      preferredSize: Size.fromHeight(32), // 这里设置高度
+      preferredSize: Size.fromHeight(38), // 这里设置高度
       child: Container(
         child: TabBar(
+          controller: _tabController,
           isScrollable: true, //是否可滚动
           tabAlignment: TabAlignment.start, // 设置为左对齐
           padding: EdgeInsets.zero, // Remove default padding
@@ -156,68 +166,6 @@ class NestedTabsViewPageState extends State<NestedTabsViewPage>
                 return Tab(text: tab);
               }).toList(),
         ),
-      ),
-    );
-  }
-
-  TabBar _buildNormalTabBar() {
-    return TabBar(
-      isScrollable: true, //是否可滚动
-      tabAlignment: TabAlignment.start, // 设置为左对齐
-      padding: EdgeInsets.zero, // Remove default padding
-      //指示器长度=label，即tab文字长度
-      indicatorSize: TabBarIndicatorSize.label,
-      //指示器长度=tab
-      // indicatorSize: TabBarIndicatorSize.tab,
-      labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-      unselectedLabelStyle: TextStyle(
-        fontWeight: FontWeight.normal,
-        fontSize: 14,
-      ),
-      tabs:
-          _tabs.map((String tab) {
-            return Tab(text: tab);
-          }).toList(),
-    );
-  }
-
-  Widget _buildAppBar() {
-    final double statusBarHeight = MediaQuery.of(context).padding.top;
-    return AppBar(
-      backgroundColor: Colors.white,
-      // expandedHeight: statusBarHeight + kToolbarHeight,
-      // pinned: true, // 固定在顶部
-      // floating: true, // 快速显示
-      // // snap: true, // 快速展开
-      // stretch: true,
-      // 固定状态下的高度
-      // toolbarHeight: kToolbarHeight,
-      // 定制search
-      title: SearchWidget(height: 42),
-      // title组件居中
-      centerTitle: true,
-      //leading和title的间距，默认为 16
-      titleSpacing: 8,
-      //定制logo
-      leading: LogoWidget(height: kToolbarHeight, width: kToolbarHeight),
-      //定制 tabbar
-      bottom: TabBar(
-        isScrollable: true, //是否可滚动
-        tabAlignment: TabAlignment.start, // 设置为左对齐
-        padding: EdgeInsets.zero, // Remove default padding
-        //指示器长度=label，即tab文字长度
-        indicatorSize: TabBarIndicatorSize.label,
-        //指示器长度=tab
-        // indicatorSize: TabBarIndicatorSize.tab,
-        labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-        unselectedLabelStyle: TextStyle(
-          fontWeight: FontWeight.normal,
-          fontSize: 14,
-        ),
-        tabs:
-            _tabs.map((String tab) {
-              return Tab(text: tab);
-            }).toList(),
       ),
     );
   }

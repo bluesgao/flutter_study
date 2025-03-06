@@ -6,6 +6,7 @@ import 'package:easyrefresh_demo/page/sample/carousel_page.dart';
 import 'package:easyrefresh_demo/page/sample/chat_page.dart';
 import 'package:easyrefresh_demo/page/sample/listener_header_page.dart';
 import 'package:easyrefresh_demo/page/sample/nested_scroll_view.dart';
+import 'package:easyrefresh_demo/page/sample/nested_tabs_view_page.dart';
 import 'package:easyrefresh_demo/page/sample/page_view_page.dart';
 import 'package:easyrefresh_demo/page/sample/paging_page.dart';
 import 'package:easyrefresh_demo/page/sample/refresh_on_start_page.dart';
@@ -50,6 +51,7 @@ class Routes {
   static const themeSwitchSample = '/sample/theme-switch';
   static const staggeredGridSample = '/sample/staggered-grid';
   static const tabsSample = '/sample/tabs';
+  static const nestedTabsSample = '/sample/nested-tabs';
 
   // Style
   static const style = '/style';
@@ -95,7 +97,7 @@ class Routes {
       page: () => const StaggeredGridViewPage(),
     ),
     GetPage(name: tabsSample, page: () => const TabsViewPage()),
-
+    GetPage(name: nestedTabsSample, page: () => const NestedTabsViewPage()),
     // Style
     GetPage(name: style, page: () => const StylePage()),
     GetPage(name: classicStyle, page: () => const ClassicPage()),
