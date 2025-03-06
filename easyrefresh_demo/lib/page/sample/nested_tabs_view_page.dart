@@ -59,7 +59,9 @@ class NestedTabsViewPageState extends State<NestedTabsViewPage>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SafeArea(child: _buildNestedScrollView()),
+      body: SafeArea(
+        child: _AutomaticKeepAlive(child: _buildNestedScrollView()),
+      ),
     );
   }
 
