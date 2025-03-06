@@ -68,7 +68,7 @@ class SearchWidget extends StatelessWidget {
           //     },
           //   ),
           // ),
-          Container(width: 4),
+          SizedBox(width: 4),
         ],
       ),
     );

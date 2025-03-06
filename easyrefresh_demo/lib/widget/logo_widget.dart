@@ -24,7 +24,8 @@ class LogoWidget extends StatelessWidget {
       // height: 38,
       // width: 38,
       // color: Colors.red,
-      margin: EdgeInsets.only(left: 10, right: 10),
+      // padding: EdgeInsets.only(left: 4, right: 4),
+      padding: EdgeInsets.all(4),
       alignment: Alignment.center, //设置控件内容的位置
       child: CircleAvatar(
         backgroundImage: Image.asset('assets/image/user_head.jpg').image,
