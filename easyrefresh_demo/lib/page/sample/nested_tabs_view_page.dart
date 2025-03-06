@@ -100,17 +100,21 @@ class NestedTabsViewPageState extends State<NestedTabsViewPage>
     );
   }
 
-  Widget _buildSliverGrid() {
-    return SliverGrid(
-      delegate: SliverChildBuilderDelegate((context, index) {
+  Widget _buildGridView(String title) {
+    return GridView.builder(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2, // 每行 2 列
+        crossAxisSpacing: 10.0, // 列间距
+        mainAxisSpacing: 10.0, // 行间距
+        childAspectRatio: 1.0, // 宽高比（1.0 = 正方形）
+      ),
+      itemCount: 20, // 总共 20 个网格项
+      itemBuilder: (context, index) {
         return Container(
           color: Colors.blue[(index % 9) * 100],
-          child: Center(child: Text('Grid Item $index')),
+          child: Center(child: Text('Grid Item $title $index')),
         );
-      }, childCount: 30),
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2, // 每行显示 2 个
-      ),
+      },
     );
   }
 
@@ -133,9 +137,9 @@ class NestedTabsViewPageState extends State<NestedTabsViewPage>
         // Scaffold(
         //   body: Text('sdf'),
         // ),
-        _buildListView("home"),
+        _buildGridView("home"),
         _buildListView('Business'),
-        _buildListView('School1'),
+        _buildGridView('School1'),
         _buildListView('School2'),
         _buildListView('School3'),
         _buildListView('School4'),
