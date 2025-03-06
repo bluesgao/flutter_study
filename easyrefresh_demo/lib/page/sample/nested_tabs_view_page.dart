@@ -59,9 +59,7 @@ class NestedTabsViewPageState extends State<NestedTabsViewPage>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SafeArea(
-        child: _AutomaticKeepAlive(child: _buildNestedScrollView()),
-      ),
+      body: SafeArea(child: _buildNestedScrollView()),
     );
   }
 
@@ -98,7 +96,7 @@ class NestedTabsViewPageState extends State<NestedTabsViewPage>
           ),
         ];
       },
-      body: buildCustomTabBarView(),
+      body: _buildCustomTabBarView(),
     );
   }
 
@@ -132,22 +130,22 @@ class NestedTabsViewPageState extends State<NestedTabsViewPage>
     );
   }
 
-  Widget buildCustomTabBarView() {
+  Widget _buildCustomTabBarView() {
     return TabBarView(
       controller: _tabController, //tabbar控制器
       children: <Widget>[
         // Scaffold(
         //   body: Text('sdf'),
         // ),
-        _buildGridView("home"),
-        _buildListView('Business'),
-        _buildGridView('School1'),
-        _buildListView('School2'),
-        _buildListView('School3'),
-        _buildListView('School4'),
-        _buildListView('School5'),
-        _buildListView('School6'),
-        _buildListView('School7'),
+        _AutomaticKeepAlive(child: _buildGridView("home")),
+        _AutomaticKeepAlive(child: _buildGridView("Business")),
+        _AutomaticKeepAlive(child: _buildGridView("School1")),
+        _AutomaticKeepAlive(child: _buildGridView("School2")),
+        _AutomaticKeepAlive(child: _buildGridView("School3")),
+        _AutomaticKeepAlive(child: _buildGridView("School4")),
+        _AutomaticKeepAlive(child: _buildGridView("School5")),
+        _AutomaticKeepAlive(child: _buildGridView("School6")),
+        _AutomaticKeepAlive(child: _buildGridView("School7")),
       ],
     );
   }
