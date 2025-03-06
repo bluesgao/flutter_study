@@ -102,6 +102,7 @@ class NestedTabsViewPageState extends State<NestedTabsViewPage>
 
   Widget _buildGridView(String title) {
     return GridView.builder(
+      key: PageStorageKey(title), // 确保 key 唯一
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2, // 每行 2 列
         crossAxisSpacing: 10.0, // 列间距
@@ -120,6 +121,7 @@ class NestedTabsViewPageState extends State<NestedTabsViewPage>
 
   Widget _buildListView(String title) {
     return ListView.builder(
+      key: PageStorageKey(title), // 确保 key 唯一
       itemCount: 20, // 列表项数量
       itemBuilder: (context, index) {
         return Card(
@@ -138,13 +140,13 @@ class NestedTabsViewPageState extends State<NestedTabsViewPage>
         //   body: Text('sdf'),
         // ),
         _AutomaticKeepAlive(child: _buildGridView("home")),
-        _AutomaticKeepAlive(child: _buildGridView("Business")),
+        _AutomaticKeepAlive(child: _buildListView("Business")),
         _AutomaticKeepAlive(child: _buildGridView("School1")),
-        _AutomaticKeepAlive(child: _buildGridView("School2")),
+        _AutomaticKeepAlive(child: _buildListView("School2")),
         _AutomaticKeepAlive(child: _buildGridView("School3")),
-        _AutomaticKeepAlive(child: _buildGridView("School4")),
+        _AutomaticKeepAlive(child: _buildListView("School4")),
         _AutomaticKeepAlive(child: _buildGridView("School5")),
-        _AutomaticKeepAlive(child: _buildGridView("School6")),
+        _AutomaticKeepAlive(child: _buildListView("School6")),
         _AutomaticKeepAlive(child: _buildGridView("School7")),
       ],
     );
