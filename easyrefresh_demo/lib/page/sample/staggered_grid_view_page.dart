@@ -211,17 +211,22 @@ class _StaggeredGridViewPageState extends State<StaggeredGridViewPage>
     print("Get.statusBarHeight ${Get.statusBarHeight}");
     print("statusBarHeight ${statusBarHeight}");
     print("kToolbarHeight ${kToolbarHeight}");
+    final double searchBarHeight = 42;
+
+    final double appBarHeight =
+        statusBarHeight +
+        (kToolbarHeight > searchBarHeight ? searchBarHeight : kToolbarHeight);
 
     return SliverPersistentHeader(
       pinned: true,
       delegate: _CustomSliverHeaderDelegate(
-        minHeight: statusBarHeight + kToolbarHeight,
-        maxHeight: statusBarHeight + kToolbarHeight,
+        minHeight: appBarHeight,
+        maxHeight: appBarHeight,
         child: Column(
           children: [
             Expanded(
               child: Container(
-                color: Colors.yellow,
+                color: Colors.white,
                 alignment: Alignment.center,
                 // child: Text(
                 //   'Search Header',
@@ -233,11 +238,12 @@ class _StaggeredGridViewPageState extends State<StaggeredGridViewPage>
                 // ),
               ),
             ),
+            //搜索框
             Container(
               // color: Colors.cyan,
               color: Colors.white,
               width: double.infinity,
-              height: kToolbarHeight > 48 ? 48 : kToolbarHeight,
+              height: searchBarHeight,
               alignment: Alignment.center, //设置控件内容的位置
               child: Row(
                 mainAxisSize: MainAxisSize.max,
@@ -245,14 +251,15 @@ class _StaggeredGridViewPageState extends State<StaggeredGridViewPage>
                 children: [
                   //logo
                   Container(
-                    height: 40,
-                    width: 40,
+                    // height: 38,
+                    // width: 38,
                     // color: Colors.red,
                     margin: EdgeInsets.only(left: 10, right: 10),
                     alignment: Alignment.center, //设置控件内容的位置
                     child: CircleAvatar(
                       backgroundImage:
                           Image.asset('assets/image/user_head.jpg').image,
+                      radius: searchBarHeight / 2 - 4,
                     ),
                   ),
                   // search
@@ -260,7 +267,7 @@ class _StaggeredGridViewPageState extends State<StaggeredGridViewPage>
                     // flex: 8,
                     child: Container(
                       alignment: Alignment.center, //设置控件内容的位置
-                      height: 40,
+                      height: 32,
                       // color: Colors.green,
                       // margin: EdgeInsets.all(0),
                       child: TextField(
@@ -269,7 +276,7 @@ class _StaggeredGridViewPageState extends State<StaggeredGridViewPage>
                           filled: true,
                           // fillColor: Colors.red,
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(25),
+                            borderRadius: BorderRadius.circular(15),
                             borderSide: BorderSide.none,
                           ),
                           prefixIcon: Icon(Icons.search),
@@ -280,15 +287,14 @@ class _StaggeredGridViewPageState extends State<StaggeredGridViewPage>
                   ),
                   // message
                   Container(
-                    height: 40,
-                    width: 40,
+                    // height: 32,
+                    // width: 32,
                     alignment: Alignment.center, //设置控件内容的位置
-                    color: Colors.blue,
+                    // color: Colors.blue,
                     // margin: EdgeInsets.only(right: 10),
                     child: IconButton(
                       onPressed: () {},
                       icon: Icon(Icons.email_outlined),
-                      iconSize: 28.0,
                     ),
                   ),
                 ],
