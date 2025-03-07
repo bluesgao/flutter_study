@@ -104,4 +104,6 @@ const en = {
   'tab view example': 'tabs Example',
   'nested tab view': 'nested tabs',
   'nested tab view example': 'nested tabs Example',
+  'extended nested tab view': 'extended nested tabs',
+  'extended nested tab view example': 'extended nested tabs Example',
 };

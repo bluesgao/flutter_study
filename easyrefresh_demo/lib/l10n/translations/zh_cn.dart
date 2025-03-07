@@ -101,4 +101,6 @@ const zhCN = {
   'tab view example': 'tabs示例',
   'nested tab view': 'nested tabs',
   'nested tab view example': 'nested tabs示例',
+  'extended nested tab view': 'extended nested tabs',
+  'extended nested tab view example': 'extended nested tabs示例',
 };

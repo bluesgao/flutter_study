@@ -33,6 +33,8 @@ import 'package:easyrefresh_demo/page/style/taurus_page.dart';
 import 'package:get/get.dart';
 import 'package:easyrefresh_demo/page/sample/tabs_view_page.dart';
 
+import '../page/sample/extended_nested_tabs_view_page.dart';
+
 class Routes {
   // Home
   static const home = '/';
@@ -52,7 +54,7 @@ class Routes {
   static const staggeredGridSample = '/sample/staggered-grid';
   static const tabsSample = '/sample/tabs';
   static const nestedTabsSample = '/sample/nested-tabs';
-
+  static const extendedNestedTabsSample = '/sample/extended-nested-tabs';
   // Style
   static const style = '/style';
   static const classicStyle = '/style/classic';
@@ -98,6 +100,10 @@ class Routes {
     ),
     GetPage(name: tabsSample, page: () => const TabsViewPage()),
     GetPage(name: nestedTabsSample, page: () => const NestedTabsViewPage()),
+    GetPage(
+      name: extendedNestedTabsSample,
+      page: () => const ExtendedNestedTabsViewPage(),
+    ),
     // Style
     GetPage(name: style, page: () => const StylePage()),
     GetPage(name: classicStyle, page: () => const ClassicPage()),
